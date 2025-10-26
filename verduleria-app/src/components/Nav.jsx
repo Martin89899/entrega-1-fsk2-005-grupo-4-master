@@ -1,44 +1,68 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
-// CRÍTICO: El componente ahora recibe la prop 'cartCount'
-function Nav({ cartCount }) {
-  // Aseguramos que cartCount muestre 0 si no se ha pasado (valor por defecto)
-  const count = cartCount || 0; 
-  
+function Nav() {
+  const { totalItems } = useContext(CartContext); // 👈 cantidad dinámica del carrito
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container px-4 px-lg-5">
-        
-        {/* Usamos <Link> en lugar de <a> */}
-        <Link className="navbar-brand" to="/explorar">Carvelu</Link>
-        
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+      <div className="container">
+        {/* Logo */}
+        <Link className="navbar-brand fw-bold text-success" to="/">
+          Carvelu
+        </Link>
+
+        {/* Botón colapsable (modo responsive) */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {/* Menú centrado */}
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item"><Link className="nav-link" to="/explorar">Nuestros productos</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/registro">Registrarse</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/login">Iniciar Sesión</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/home">Sobre nosotros</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/ubicacion">Ubicación</Link></li>
-          </ul>
-
-          {/* Botón de carrito */}
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+        {/* Menú principal */}
+        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/carrito" className="btn btn-outline-dark position-relative">
-                <i className="bi-cart-fill me-1"></i> 
-                Carrito
-                {/* CRÍTICO: Aquí usamos la variable 'count' recibida por props */}
-                <span className="badge bg-dark text-white ms-1 rounded-pill" id="cart-count">{count}</span>
+              <Link className="nav-link" to="/explorar">
+                Nuestros productos
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/registro">
+                Registrarse
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Iniciar Sesión
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/ubicacion">
+                Ubicación
               </Link>
             </li>
           </ul>
+        </div>
+
+        {/* Carrito a la derecha */}
+        <div className="d-flex align-items-center">
+          <Link to="/carrito" className="btn btn-outline-dark position-relative">
+            🛒 Carrito
+            <span
+              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark"
+              style={{ fontSize: "0.75rem" }}
+            >
+              {totalItems}
+            </span>
+          </Link>
         </div>
       </div>
     </nav>
