@@ -5,7 +5,7 @@ export const products = [
     nombre: "Lomo Vetado",
     price: 10990,
     originalPrice: 12990,
-    img: "Lomo_Vetado.webp", // ✅ nombre real
+    img: "Lomo_Vetado.webp",
     isSale: true
   },
   {
@@ -13,7 +13,7 @@ export const products = [
     nombre: "Huachalomo",
     price: 9990,
     originalPrice: 10990,
-    img: "Huachalomo.webp", // ✅ nombre real
+    img: "Huachalomo.webp",
     isSale: true
   },
   {
@@ -21,14 +21,14 @@ export const products = [
     nombre: "Tomate Fresco",
     price: 1990,
     originalPrice: 2490,
-    img: "Tomate.webp", // ✅ nombre real
+    img: "Tomate.webp",
     isSale: true
   },
   {
     id: 4,
     nombre: "Lechuga Romana",
     price: 890,
-    img: "lechuga.jpg", // ✅ nombre real
+    img: "lechuga.jpg",
     isSale: false
   }
 ];
