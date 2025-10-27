@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 
 function Nav() {
-  const { totalItems } = useContext(CartContext); // 👈 cantidad dinámica del carrito
+  const { totalItems } = useContext(CartContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
       <div className="container">
         {/* Logo */}
         <Link className="navbar-brand fw-bold text-success" to="/">
-          Carvelu
+          🥬 Carvelu
         </Link>
 
         {/* Botón colapsable (modo responsive) */}
@@ -27,34 +29,70 @@ function Nav() {
         </button>
 
         {/* Menú principal */}
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/explorar">
-                Nuestros productos
+                📦 Nuestros productos
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/categorias">
+                🥦 Categorías
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/ofertas">
+                🔥 Ofertas
+              </Link>
+            </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/registro">
-                Registrarse
+                📝 Registrarse
               </Link>
             </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/login">
-                Iniciar Sesión
+                🔑 Iniciar Sesión
               </Link>
             </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/ubicacion">
-                Ubicación
+                📍 Ubicación
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Carrito a la derecha */}
+        {/* Usuario logueado */}
+        {user ? (
+          <div className="d-flex align-items-center me-3">
+            <span className="me-2 fw-semibold text-success">
+              👋 Hola, {user.name || user.email}
+            </span>
+            <button
+              className="btn btn-sm btn-outline-danger"
+              onClick={logout}
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        ) : null}
+
+        {/* Carrito */}
         <div className="d-flex align-items-center">
-          <Link to="/carrito" className="btn btn-outline-dark position-relative">
+          <Link
+            to="/carrito"
+            className="btn btn-outline-dark position-relative"
+          >
             🛒 Carrito
             <span
               className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark"
